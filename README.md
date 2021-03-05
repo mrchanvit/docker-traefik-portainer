@@ -18,7 +18,9 @@ $ git clone https://github.com/mrchanvit/docker-traefik-portainer.git ./src
     Để tại user mới sử dụng lệnh 
     $ sudo apt install apache2-utils
     $ echo $(htpasswd -nb username matkhau)
-7. Chạy stack, thay sys bằng tên hệ thống (Tùy chọn)
+7. Đổi quyền file acme.json sang 600
+    $ sudo chmod 600 /path/src/core/traefik-data/acme.json
+8. Chạy stack, thay sys bằng tên hệ thống (Tùy chọn)
 $ cd src/core
 $ docker stack deploy -c docker-compose.yml sys
 
