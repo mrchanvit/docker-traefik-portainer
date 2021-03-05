@@ -24,7 +24,7 @@ services:
       - "traefik.docker.network=proxy"
       - "traefik.http.routers.traefik-secure.entrypoints=websecure"
       # [REQUIRED] - THAY ĐỔI DOMAIN TRAEFIK
-      - "traefik.http.routers.traefik-secure.rule=Host(`traefik-singlen.hido.space`)"
+      - "traefik.http.routers.traefik-secure.rule=Host(`traefik.domain.com`)"
       - "traefik.http.routers.traefik-secure.middlewares=user-auth@file"
       - "traefik.http.routers.traefik-secure.service=api@internal"
 
@@ -65,7 +65,7 @@ services:
       - "traefik.docker.network=proxy"
       - "traefik.http.routers.portainer-secure.entrypoints=websecure"
       # [REQUIRED] - THAY ĐỔI DOMAIN PORTAINER
-      - "traefik.http.routers.portainer-secure.rule=Host(`portainer-singlen.hido.space`)"
+      - "traefik.http.routers.portainer-secure.rule=Host(`portainer.domain.com`)"
       - "traefik.http.routers.portainer-secure.service=portainer"
       - "traefik.http.services.portainer.loadbalancer.server.port=9000"
 
