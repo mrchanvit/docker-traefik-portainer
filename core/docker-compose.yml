@@ -1,12 +1,8 @@
-version: "3"
+version: "3.2"
 
 services:
   traefik:
-    image: traefik:latest
-    container_name: traefik
-    restart: unless-stopped
-    security_opt:
-      - no-new-privileges:true
+    image: traefik:latest        
     networks:
       - proxy
     ports:
@@ -18,34 +14,63 @@ services:
       - ./traefik-data/traefik.yml:/traefik.yml:ro
       - ./traefik-data/acme.json:/acme.json
       - ./traefik-data/configurations:/configurations
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=proxy"
       - "traefik.http.routers.traefik-secure.entrypoints=websecure"
-      - "traefik.http.routers.traefik-secure.rule=Host(`traefik.domain.com`)"
+      # [REQUIRED] - THAY ĐỔI DOMAIN TRAEFIK
+      - "traefik.http.routers.traefik-secure.rule=Host(`traefik-singlen.hido.space`)"
       - "traefik.http.routers.traefik-secure.middlewares=user-auth@file"
       - "traefik.http.routers.traefik-secure.service=api@internal"
 
+  agent:
+    image: portainer/agent
+    environment:
+      # REQUIRED: Should be equal to the service name prefixed by "tasks." when
+      # deployed inside an overlay network
+      AGENT_CLUSTER_ADDR: tasks.agent
+      # AGENT_PORT: 9001
+      # LOG_LEVEL: debug
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes
+    networks:
+      - agent_network
+    deploy:
+      mode: global
+      placement:
+        constraints: [node.platform.os == linux]
+
   portainer:
-    image: portainer/portainer-ce:latest
-    container_name: portainer
-    restart: unless-stopped
-    security_opt:
-      - no-new-privileges:true
+    image: portainer/portainer-ce:latest   
     networks:
       - proxy
+      - agent_network
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./portainer-data:/data
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=proxy"
       - "traefik.http.routers.portainer-secure.entrypoints=websecure"
-      - "traefik.http.routers.portainer-secure.rule=Host(`portainer.domain.com`)"
+      # [REQUIRED] - THAY ĐỔI DOMAIN PORTAINER
+      - "traefik.http.routers.portainer-secure.rule=Host(`portainer-singlen.hido.space`)"
       - "traefik.http.routers.portainer-secure.service=portainer"
       - "traefik.http.services.portainer.loadbalancer.server.port=9000"
 
 networks:
   proxy:
+    external: true
+  agent_network:
     external: true

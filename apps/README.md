@@ -1,3 +1,3 @@
 # Apps
 
-The folder for your apps
+Thư mục chứa ứng dụng Docker

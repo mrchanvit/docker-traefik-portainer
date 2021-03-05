@@ -27,8 +27,13 @@ providers:
 certificatesResolvers:
   letsencrypt:
     acme:
-      email: rafrasenberg@gmail.com
+      # [REQUIRED] - THAY ĐỔI EMAIL SỞ HỮU SSL
+      email: mrchanvit@gmail.com
       storage: acme.json
       keyType: EC384
       httpChallenge:
         entryPoint: web
+
+accessLog:
+  filePath: "/etc/traefik/access.log"
+  bufferingSize: 100

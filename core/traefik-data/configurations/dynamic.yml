@@ -12,7 +12,8 @@ http:
     user-auth:
       basicAuth:
         users:
-          - "raf:$apr1$MTqfVwiE$FKkzT5ERGFqwH9f3uipxA1"
+          # [REQUIRED] - THAY ĐỔI USER TRAEFIK
+          - "username:$apr1$Oq44NN/l$b0i2tAihh6H7chSEiULiL1"
 
 tls:
   options:
