@@ -1,16 +1,25 @@
-# Docker container management with Traefik v2 and Portainer
+## Các bước chuẩn bị
 
-A configuration set-up for a Traefik v2 reverse proxy along with Portainer and Docker Compose.
+1. Cài đặt Docker và Docker Swarm
+2. Kiểm tra ngày giờ server
+    # Kiểm tra timezone
+    $ ls -l /etc/localtime
+    $ timedatectl
 
-This set-up makes container management & deployment a breeze and the reverse proxy allows for running multiple applications on one Docker host. Traefik will route all the incoming traffic to the appropriate docker containers and through the open-source app Portainer you can speed up software deployments, troubleshoot problems and simplify migrations.
+    # Set timezone
+    $ sudo timedatectl set-timezone Asia/Ho_Chi_Minh
 
-Detailed explanation how to use this in my blog post:
-[Docker container management with Traefik v2 and Portainer](https://rafrasenberg.com/posts/docker-container-management-with-traefik-v2-and-portainer/)
+3. Thay domain trong file /home/tmc/src/core/docker-compose.yml
+4. Thay email đăng ký free ssl tại /home/tmc/src/core/traefik-data/traefik.yml
+5. Thay đổi user hệ thống tại /home/tmc/src/core/traefik-data/configurations/dynamic.yml
+    Để tại user mới sử dụng lệnh 
+    $ sudo apt install apache2-utils
+    $ echo $(htpasswd -nb username matkhau)
 
-## How to run it?
-
+## Chạy stack
 ```
 $ git clone https://github.com/rafrasenberg/docker-traefik-portainer ./src
 $ cd src/core
 $ docker-compose up -d
 ```
+# docker-traefik-portainer
