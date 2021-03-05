@@ -9,10 +9,8 @@
     ### Set timezone
     $ sudo timedatectl set-timezone Asia/Ho_Chi_Minh
 
-3. Chạy stack
+3. Clone code
 $ git clone https://github.com/mrchanvit/docker-traefik-portainer.git ./src
-$ cd src/core
-$ docker-compose up -d
 
 4. Thay domain trong file /home/tmc/src/core/docker-compose.yml
 5. Thay email đăng ký free ssl tại /home/tmc/src/core/traefik-data/traefik.yml
@@ -20,6 +18,8 @@ $ docker-compose up -d
     Để tại user mới sử dụng lệnh 
     $ sudo apt install apache2-utils
     $ echo $(htpasswd -nb username matkhau)
+7. Chạy stack, thay sys bằng tên hệ thống (Tùy chọn)
+$ cd src/core
+$ docker stack deploy -c docker-compose.yml sys
 
 
-# docker-traefik-portainer
