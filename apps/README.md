@@ -1,3 +1,3 @@
 # Apps
 
-Thư mục chứa ứng dụng Docker
+Thư mục chứa các ứng dụng Docker
