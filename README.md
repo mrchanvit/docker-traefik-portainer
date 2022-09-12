@@ -22,6 +22,7 @@ $ git clone https://github.com/mrchanvit/docker-traefik-portainer.git ./src
     $ sudo chmod 600 /path/src/core/traefik-data/acme.json
 8. Tạo network overlay cho Swarm
     $ docker network create -d overlay proxy
+    $ docker network create -d overlay agent_network
 9. Chạy stack, thay sys bằng tên hệ thống (Tùy chọn)
 $ cd src/core
 $ docker stack deploy -c docker-compose.yml sys
