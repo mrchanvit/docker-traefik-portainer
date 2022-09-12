@@ -20,7 +20,9 @@ $ git clone https://github.com/mrchanvit/docker-traefik-portainer.git ./src
     $ echo $(htpasswd -nb username matkhau)
 7. Đổi quyền file acme.json sang 600
     $ sudo chmod 600 /path/src/core/traefik-data/acme.json
-8. Chạy stack, thay sys bằng tên hệ thống (Tùy chọn)
+8. Tạo network overlay cho Swarm
+    $ docker network create -d overlay proxy
+9. Chạy stack, thay sys bằng tên hệ thống (Tùy chọn)
 $ cd src/core
 $ docker stack deploy -c docker-compose.yml sys
 
