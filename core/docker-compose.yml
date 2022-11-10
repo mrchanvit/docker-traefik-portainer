@@ -37,7 +37,7 @@ services:
         - "traefik.http.services.traefik-public.loadbalancer.server.port=8080"
 
   agent:
-    image: portainer/agent
+    image: portainer/agent:2.16.1
     environment:
       # REQUIRED: Should be equal to the service name prefixed by "tasks." when
       # deployed inside an overlay network
@@ -55,7 +55,7 @@ services:
         constraints: [node.platform.os == linux]
 
   portainer:
-    image: portainer/portainer-ce:latest   
+    image: portainer/portainer-ce:2.16.1
     networks:
       - proxy
       - agent_network
